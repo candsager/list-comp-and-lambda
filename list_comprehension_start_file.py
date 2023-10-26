@@ -1,5 +1,5 @@
 '''List comprehensions provide a concise way to create lists. 
-
+#Create list from other list
 It consists of brackets containing an expression followed by a for clause, then
 zero or more for or if clauses. The expressions can be anything, meaning you can
 put in all kinds of objects in lists.
@@ -9,12 +9,14 @@ context of the for and if clauses which follow it.
 
 The list comprehension always returns a result list. '''
 
-
+#In the brackets, [expression, iteration (required), condition (optional)]
 '''
+original_list = [x,y,z,....]
 new_list = []
 for i in original_list:
     if filter(i):
-        new_list.append(expressions(i))  '''
+        result = expression(i)
+        new_list.append(result)  '''
 
 #You can obtain the same thing using list comprehension:
 
@@ -30,7 +32,54 @@ for i in original_list:
 
 #The filter part answers the question if the item should be transformed.
 
+x = [i for i in range(10)]
+print(x)
 
+squares = [x**2 for x in range(10) ]
+print(squares)
+
+list1 = [3,4,5]
+multipied = [item*3 for item in list1]
+print(multipied)
+
+listOfwords = ["this", "is", "a", "list", "of","words"]
+result = [word[0].upper() for word in listOfwords ]
+print(result)
+
+
+#adding an IF
+#get the square of every even number from 0-10
+result = [i*i for i in range(11) if i % 2 ==0]
+print(result)
+
+string = "Hello 12345 World"
+numbers = [int(x) for x in string if x.isdigit()] #isalpha for letters*******
+print(numbers)
+
+
+list1 = list(range(1,21))
+print(list1)
+
+list2 = [x*100 for x in list1 if x%2==0]
+print(list2)
+
+
+infile = open('test.txt', 'r')
+
+result = [i.rstrip('\n') for i in infile if "line3" in i]
+print(result)
+
+
+def double(x):
+    return x*2
+
+print(double(10))
+
+result = [double(x) for x in range(10) if x%2 == 0]
+print(result)
+
+result = [x+y for x in [10,30,50] for y in [20,40,60]]
+print(result)
 
 ## Exercise ##
 
@@ -39,6 +88,8 @@ for i in original_list:
 
 numbers = [34.6, -203.4, 44.9, 68.3, -12.2, 44.6, 12.7]
 
+newlist = [x for x in numbers if x > 0 ]
+print(newlist)
 
 
 
@@ -48,6 +99,9 @@ numbers = [34.6, -203.4, 44.9, 68.3, -12.2, 44.6, 12.7]
 sentence = "the quick brown fox jumps over the lazy dog"
 words = sentence.split()
 
+lengths_the = [len(word) for word in words if word.lower() != 'the']
+
+print(lengths_the)
 
 
 ## Given dictionary is consisted of vehicles and their weights in kilograms. 
@@ -57,24 +111,29 @@ words = sentence.split()
 dict={"Sedan": 1500, "SUV": 2000, "Pickup": 2500, "Minivan": 1600, "Van": 2400, 
 "Semi": 13600, "Bicycle": 7, "Motorcycle": 110}
 
+selected_vehicles = [vehicle.upper() for vehicle, weight in dict.items() if weight < 5000]
 
+print(selected_vehicles)
 
 
 ## Find all the numbers from 1 to 1000 that have a 4 in them
 
-
+numbers_with_four = [num for num in range(1, 1001) if '4' in str(num)]
+print(numbers_with_four)
 
 ## count how many times the word 'the' appears in the text file - 'sometext.txt'
 
 
+infile = open('sometext.txt', 'r')
+line_counts = [line.lower().count('the') for line in infile]
+
+total_the_count = sum(line_counts)
+
+print("The word 'the' appears", total_the_count, "times in the file.")
 
 ## Extract the numbers from the following phrase ##
 
-phrase = 'In 1984 there were 13 instances of a protest with over 1000 people attending. On average there were 15 reported injuries at each " +
-"event, with about 3 or 4 that were classifled as serious per event.'
+phrase = f'In 1984 there were 13 instances of a protest with over 1000 people attending. On average there were 15 reported injuries at each event, with about 3 or 4 that were classifled as serious per event.'
 
-
-
-
-
-
+numbers = [int(word) for word in phrase.split() if word.isdigit()]
+print(numbers)
